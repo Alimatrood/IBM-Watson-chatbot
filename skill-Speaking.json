@@ -1,0 +1,416 @@
+{
+  "intents": [
+    {
+      "intent": "about-me",
+      "examples": [
+        {
+          "text": "are you a real human?"
+        },
+        {
+          "text": "What is your name?"
+        },
+        {
+          "text": "who are you?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Appreciation",
+      "examples": [
+        {
+          "text": "appreciate it"
+        },
+        {
+          "text": "Appreciate the help"
+        },
+        {
+          "text": "Thanks!"
+        },
+        {
+          "text": "Thank you"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "pc-parts",
+      "examples": [
+        {
+          "text": "PC parts"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Services",
+      "examples": [
+        {
+          "text": "buy"
+        },
+        {
+          "text": "I would like to buy"
+        },
+        {
+          "text": "what do you do?"
+        },
+        {
+          "text": "what do you sell?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "welcoming",
+      "examples": [
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Hello there"
+        },
+        {
+          "text": "Hey"
+        },
+        {
+          "text": "Hi"
+        },
+        {
+          "text": "Hi there"
+        },
+        {
+          "text": "Salam"
+        },
+        {
+          "text": "welcome"
+        },
+        {
+          "text": "What's up?"
+        }
+      ],
+      "description": "This intent is used for welcoming words"
+    }
+  ],
+  "entities": [
+    {
+      "entity": "PC-Parts",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "CPU",
+          "synonyms": [
+            "i7",
+            "i9",
+            "Processor",
+            "Processors"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Gaming accessories",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "GPU",
+          "synonyms": [
+            "graphic card",
+            "GTX",
+            "RTX"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Power supply",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "RAM",
+          "synonyms": [
+            "memory",
+            "random access memory"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_5_1627235955484",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "pc parts",
+      "output": {
+        "generic": [
+          {
+            "title": "PC PARTS",
+            "options": [
+              {
+                "label": "CPUs",
+                "value": {
+                  "input": {
+                    "text": "CPU"
+                  }
+                }
+              },
+              {
+                "label": "RAM",
+                "value": {
+                  "input": {
+                    "text": "RAM"
+                  }
+                }
+              },
+              {
+                "label": "GPUs",
+                "value": {
+                  "input": {
+                    "text": "GPU"
+                  }
+                }
+              },
+              {
+                "label": "Power supply",
+                "value": {
+                  "input": {
+                    "text": "Power supply"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "conditions": "#pc-parts",
+      "dialog_node": "node_1_1627245439013",
+      "previous_sibling": "node_4_1627244050238"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "We sell computer parts, and gaming accessories. What do you want to buy?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "Catalog",
+            "options": [
+              {
+                "label": "PC parts",
+                "value": {
+                  "input": {
+                    "text": "PC parts"
+                  }
+                }
+              },
+              {
+                "label": "Gaming accessories",
+                "value": {
+                  "input": {
+                    "text": "Gaming accessories"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "conditions": "#Services",
+      "dialog_node": "node_4_1627244050238",
+      "previous_sibling": "node_9_1627244806024"
+    },
+    {
+      "type": "standard",
+      "title": "Welcoming",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hey, how can I help you?"
+              },
+              {
+                "text": "Hi, how can I help you?"
+              },
+              {
+                "text": "Hello, how can I help you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "#welcoming",
+      "dialog_node": "node_5_1627235955484",
+      "previous_sibling": "node_6_1627242317398"
+    },
+    {
+      "type": "standard",
+      "title": "Appreciation",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "No problem!"
+              },
+              {
+                "text": "Your welcome"
+              },
+              {
+                "text": "No problem, I am here for you."
+              },
+              {
+                "text": "welcome"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "dialog_node": "node_6_1627242317398",
+      "previous_sibling": "node_7_1627246654897"
+    },
+    {
+      "type": "standard",
+      "title": "Out of stock",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I am sorry, it is out of stock. It will be available after one week."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "@PC-Parts",
+      "dialog_node": "node_7_1627246654897",
+      "previous_sibling": "node_1_1627245439013"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I am Salem, a helping robot! I am glad to help you."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#about-me",
+      "dialog_node": "node_9_1627244806024",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. How can I help you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [
+    {
+      "text": "buy"
+    },
+    {
+      "text": "PC parts"
+    },
+    {
+      "text": "what"
+    }
+  ],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "Speaking",
+  "language": "en",
+  "description": ""
+}
